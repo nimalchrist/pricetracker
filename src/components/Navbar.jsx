@@ -49,8 +49,6 @@ export const Header = () => {
                 </Button>
               </span>
             </div>
-            <div className="wish">wish</div>
-            <div className="user">User </div>
           </div>
         </div>
       </header>
