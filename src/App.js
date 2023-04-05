@@ -1,12 +1,12 @@
 import "./App.css";
-import HomePage from "./pages/HomePage";
-import React from "react";
+import { Header } from "./components/Navbar";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <Router>
+      <Header />
+    </Router>
   );
 }
 
