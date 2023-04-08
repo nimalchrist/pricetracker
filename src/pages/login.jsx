@@ -12,7 +12,8 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  function handleLogin() {
+  function handleLogin(event) {
+    event.preventDefault();
     const data = {
       email: email,
       password: password,
@@ -24,15 +25,16 @@ export default function App() {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.status === 200) {
+      .then((response) => {
+        if (response.ok) {
+          console.log("Inside the 200 status code");
           navigate("/home");
           // Handle successful registration here
         } else {
-          setErrorMsg(data.msg);
-          // Handle registration error here
+          return response.json().then((data) => {
+            setErrorMsg(data.msg);
+            // Handle registration error here
+          });
         }
       })
       .catch((error) => {
@@ -57,15 +59,16 @@ export default function App() {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.status === 200) {
+      .then((response) => {
+        if (response.ok) {
+          console.log("Inside the 200 status code");
           navigate("/home");
           // Handle successful registration here
         } else {
-          setErrorMsg(data.msg);
-          // Handle registration error here
+          return response.json().then((data) => {
+            setErrorMsg(data.msg);
+            // Handle registration error here
+          });
         }
       })
       .catch((error) => {
