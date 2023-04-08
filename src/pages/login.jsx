@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 export default function App() {
   const [state, setState] = useState(true);
 
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
   const navigate = useNavigate();
 
   function handleLogin() {
@@ -13,18 +18,49 @@ export default function App() {
     navigate("/home");
   }
 
-  function handleRegister() {
-    // perform login logic here
-    // if login is successful, redirect to home page
-    navigate("/home");
-  }
+  const handleRegister = (event) => {
+   // navigate("/home");
+    event.preventDefault();
+  
+    // const data = {
+    //   username: username,
+    //   email: email,
+    //   password: password,
+    // };
+    const data={
+      "username": "john",
+      "email": "john@example.com",
+      "password": "secret"
+    }
+  
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        navigate("/home");
+        // Handle successful registration here
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle registration error here
+      });
+  };
+  
+   
+  
 
   const RegisterForm = (
     <form id="Regform" onSubmit={handleRegister}>
-      <input type="text" placeholder="username" />
-      <input type="E-mail" placeholder="Email" />
-      <input type="password" placeholder="password" />
-      <button type="submit" className="btn">
+      <input type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+<input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+<input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button type="submit" className="btn" onClick={handleRegister}>
         Register
       </button>
     </form>
@@ -34,7 +70,7 @@ export default function App() {
     <form id="loginform" onSubmit={handleLogin} >
       <input type="text" placeholder="username" />
       <input type="password" placeholder="password" />
-      <button type="submit" className="btn">
+      <button type="submit" className="btn" onClick={handleLogin}>
         Login
       </button>
       <a href="#pass">Forgot password</a>

@@ -1,6 +1,17 @@
+from urllib import request
 from flask import Flask, jsonify
 import GetScrappedProducts as getter
 from flask_cors import CORS
+import mysql.connector
+
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="fency@07",
+  database="login"
+)
+
 # creating a Flask app
 app = Flask(__name__)
 CORS(app)
@@ -19,6 +30,21 @@ def products(product_name):
 
     return response
 
+
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.json['username']
+    email = request.json['email']
+    password = request.json['password']
+
+    cursor = mydb.cursor()
+    sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
+    val = (username, email, password)
+    cursor.execute(sql, val)
+    mydb.commit()
+
+    return jsonify({'success': True})
+    
 
 # driver function
 if __name__ == '__main__':
