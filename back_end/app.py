@@ -1,15 +1,14 @@
-from urllib import request
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import GetScrappedProducts as getter
 from flask_cors import CORS
 import mysql.connector
 
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="fency@07",
-  database="login"
+    host="localhost",
+    user="root",
+    password="Ninunimal@2",
+    database="pt_tracker"
 )
 
 # creating a Flask app
@@ -31,20 +30,59 @@ def products(product_name):
     return response
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    try:
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+
+        cursor = mydb.cursor()
+        sql = "SELECT * FROM users WHERE email = %s"
+        val = (email,)
+        cursor.execute(sql, val)
+        user = cursor.fetchone()
+        print(user)
+        if user is None:
+            return jsonify({'msg': 'Email not found'}), 400
+
+        if password != user[3]:
+            return jsonify({'msg': 'Incorrect password'}), 400
+
+        return jsonify({'msg': 'Logged in successfully'}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'msg': 'Error occurred while logging in'}), 500
+
+
 @app.route('/register', methods=['POST'])
 def register():
-    username = request.json['username']
-    email = request.json['email']
-    password = request.json['password']
+    try:
+        data = request.get_json()
+        username = data['username']
+        email = data['email']
+        password = data['password']
 
-    cursor = mydb.cursor()
-    sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
-    val = (username, email, password)
-    cursor.execute(sql, val)
-    mydb.commit()
+        cursor = mydb.cursor()
+        sql = "SELECT * FROM users WHERE email=%s"
+        val = (email,)
+        cursor.execute(sql, val)
+        result = cursor.fetchone()
 
-    return jsonify({'success': True})
-    
+        if result is not None:
+            return jsonify({'msg': "Email already exists"}), 400
+
+        sql = "INSERT INTO users(user_name, email, password) VALUES (%s, %s, %s)"
+        val = (username, email, password)
+        cursor.execute(sql, val)
+        mydb.commit()
+
+        return jsonify({'msg': "Registered Successfully"}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'msg': "Error occurred while registering"}), 500
+
 
 # driver function
 if __name__ == '__main__':

@@ -8,73 +8,135 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
 
   function handleLogin() {
-    // perform login logic here
-    // if login is successful, redirect to home page
-    navigate("/home");
-  }
-
-  const handleRegister = (event) => {
-   // navigate("/home");
-    event.preventDefault();
-  
-    // const data = {
-    //   username: username,
-    //   email: email,
-    //   password: password,
-    // };
-    const data={
-      "username": "john",
-      "email": "john@example.com",
-      "password": "secret"
-    }
-  
-    fetch('/register', {
-      method: 'POST',
+    const data = {
+      email: email,
+      password: password,
+    };
+    fetch("http://localhost:5000/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        navigate("/home");
-        // Handle successful registration here
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === 200) {
+          navigate("/home");
+          // Handle successful registration here
+        } else {
+          setErrorMsg(data.msg);
+          // Handle registration error here
+        }
       })
       .catch((error) => {
-        console.error('Error:', error);
-        // Handle registration error here
+        console.error("Error:", error);
+        // Handle network error here
+        setErrorMsg("Registration failed: " + error.message);
+      });
+  }
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+
+    const data = {
+      username: username,
+      email: email,
+      password: password,
+    };
+    fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === 200) {
+          navigate("/home");
+          // Handle successful registration here
+        } else {
+          setErrorMsg(data.msg);
+          // Handle registration error here
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle network error here
+        setErrorMsg("Registration failed: " + error.message);
       });
   };
-  
-   
-  
 
   const RegisterForm = (
-    <form id="Regform" onSubmit={handleRegister}>
-      <input type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-<input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-<input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" className="btn" onClick={handleRegister}>
-        Register
-      </button>
-    </form>
+    <div>
+      {errorMsg && (
+        <p style={{ color: "red", fontSize: "16px", fontWeight: "bold" }}>
+          {errorMsg}
+        </p>
+      )}
+      <form id="RegisterForm" onSubmit={handleRegister}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit" className="btn" onClick={handleRegister}>
+          Register
+        </button>
+      </form>
+    </div>
   );
 
   const LoginForm = (
-    <form id="loginform" onSubmit={handleLogin} >
-      <input type="text" placeholder="username" />
-      <input type="password" placeholder="password" />
-      <button type="submit" className="btn" onClick={handleLogin}>
-        Login
-      </button>
-      <a href="#pass">Forgot password</a>
-    </form>
+    <div>
+      {errorMsg && (
+        <p style={{ color: "red", fontSize: "16px", fontWeight: "bold" }}>
+          {errorMsg}
+        </p>
+      )}
+      <form id="loginform" onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="btn" onClick={handleLogin}>
+          Login
+        </button>
+        <a href="#pass">Forgot password</a>
+      </form>
+    </div>
   );
 
   return (
@@ -83,7 +145,6 @@ export default function App() {
         <div className="form-btn">
           <span onClick={() => setState(false)}>Login</span>
           <span onClick={() => setState(true)}>Register</span>
-          <hr id="indicator" />
           {state ? RegisterForm : LoginForm}
         </div>
       </div>
