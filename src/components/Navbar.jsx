@@ -22,6 +22,7 @@ export const Header = ({ searchValue, handleInputChange, handleSearch }) => {
             }}
           >
             <input
+            onSubmit={handleSearch}
               type="search"
               class="form-control rounded"
               placeholder="Search"
