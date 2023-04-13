@@ -86,28 +86,39 @@ export default function App() {
         </p>
       )}
       <form id="RegisterForm" onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" className="btn" onClick={handleRegister}>
+
+        <div class="form-group">
+
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          /></div>
+
+
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          /></div>
+
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          /></div>
+        <button type="submit" class="btn btn-primary" onClick={handleRegister}>
           Register
         </button>
       </form>
@@ -122,19 +133,22 @@ export default function App() {
         </p>
       )}
       <form id="loginform" onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="btn" onClick={handleLogin}>
+        <div class="form-group">
+          <input
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          /></div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          /></div>
+        <button type="submit" class="btn btn-primary" onClick={handleLogin}>
           Login
         </button>
         <a href="#pass">Forgot password</a>

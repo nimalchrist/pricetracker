@@ -20,21 +20,21 @@ button {
   padding: 50px 0;
 }
 .form-container {
-  background: #fff;
+  background: rgb(255, 255, 255);
   width: 300px;
   height: 400px;
   position: relative;
   text-align: center;
   padding: 20px 0;
   margin: auto;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px 0 rgb(37, 37, 37);
   overflow: hidden;
 }
 
 .form-container span {
   font-weight: bold;
-  padding: 0 10px;
-  color: #555;
+  padding: 0 0px;
+  color: rgb(0, 153, 255);
   cursor: pointer;
   width: 100px;
   display: inline-block;
@@ -42,11 +42,12 @@ button {
 
 .form-btn {
   display: inline-block;
+  border: 1px;
 }
 .form-container form {
   max-width: 300px;
-  padding: 0 20px;
-  position: absolute;
+  padding: 80px 20px;
+  
   top: 130px;
   transition: transform 1s;
 }
@@ -54,12 +55,15 @@ form input {
   width: 100%;
   height: 30px;
   margin: 10px 0;
-  padding: 0 10px;
-  border: 1px solid #ccc;
+  padding: 0 5px;
+  border: 1px solid rgb(0, 225, 255);
+}
+
+form input:focus{
+  border-color: transparent;
 }
 form .btn {
   width: 100%;
-  border: none;
   cursor: pointer;
   margin: 10px 0;
 }
@@ -68,9 +72,11 @@ form .btn:focus {
 }
 #loginform {
   left: 0px;
+  padding: 80px 20px;
 }
-#Regform {
+#Registerform {
   left: 0;
+  padding: 80px 20px;
 }
 
 form a {
@@ -84,4 +90,12 @@ form a {
   margin-top: 8px;
   transform: translate(100px);
   transition: transform 1s;
+}
+
+#loginform .btn{
+  background-color: blue;
+}
+
+#Registerform .btn{
+  background-color: blue;
 }
