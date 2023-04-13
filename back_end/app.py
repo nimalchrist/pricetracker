@@ -8,8 +8,8 @@ import cheap_product as cheap
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="fency@07",
-    database="pt_tracter"
+    password="Ninunimal@2",
+    database="pt_tracker"
 )
 
 # creating a Flask app
@@ -26,15 +26,15 @@ def welcome():
 def products(product_name):
     print("method called")
     res = getter.getScrappedProducts(product_name)
-    #response = jsonify(res)
+    # response = jsonify(res)
 
     if request.method == 'GET' and 'cheapest_product' in request.args:
-        cheapest_product = cheap.get_cheapest_product(res)
+        cheapest_product = cheap.getCheapestProduct(dict(res))
         response = jsonify(cheapest_product)
     else:
         response = jsonify(res)
 
-    #return response
+    return response
 
 
 @app.route('/login', methods=['POST'])
