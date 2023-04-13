@@ -76,7 +76,7 @@ def getScrappedProducts(product_name):
 
             # Find all the Amazon product containers on the page
             amazon_product_containers = amazon_soup.find_all(
-                'div', {'class': 's-result-item'})
+                'div', {'class': 's-result-item s-asin'})
 
             # Loop through each Amazon product container and extract the title and price
             i = 0
