@@ -128,7 +128,7 @@ def getScrappedProducts(product_name):
 
             # Find all the Flipkart product containers on the page
             flipkart_product_containers = flipkart_soup.find_all(
-                'div', {'class': '_2kHMtA'})
+                'div', {'class': '_2kHMtA'})[:-2]
 
             # Loop through each Flipkart product container and extract the title and price
             for flipkart_product in flipkart_product_containers:
