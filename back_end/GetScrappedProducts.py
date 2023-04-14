@@ -81,6 +81,9 @@ def getScrappedProducts(product_name):
             # Loop through each Amazon product container and extract the title and price
             i = 0
             for amazon_product in amazon_product_containers:
+                # Skip the advertisement containers
+                if 's-ad-slot' in amazon_product.get('class', []):
+                    continue
                 amazon_title_element = amazon_product.find(
                     'h2', {'class': 'a-size-mini'})
                 amazon_price_element = amazon_product.find(
