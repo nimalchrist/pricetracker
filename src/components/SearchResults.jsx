@@ -4,6 +4,7 @@ import { debounce } from "lodash";
 function SearchResults({ searchValue }) {
   const [amazonResults, setAmazonResults] = useState([]);
   const [flipkartResults, setFlipkartResults] = useState([]);
+  const [cheapestProduct, setCheapestProduct] = useState(null);
 
   useEffect(() => {
     const delayedFetchData = debounce(async (searchValue) => {
@@ -30,6 +31,18 @@ function SearchResults({ searchValue }) {
     // Cleanup function to cancel the debounce timer
     return delayedFetchData.cancel;
   }, [searchValue]);
+
+  const fetchCheapestProduct = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/products/${searchValue}?cheapest_product=true`
+      );
+      const data = await response.json();
+      setCheapestProduct(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -98,6 +111,17 @@ function SearchResults({ searchValue }) {
           ))}
         </div>
       </div>
+      <div  className="form-btn">
+      <span onClick={fetchCheapestProduct}>Cheapest..</span>
+      </div>
+      {cheapestProduct && (
+      <div>
+       <h3>Cheapest Product:</h3>
+       <div>{cheapestProduct.name}</div>
+       <div>{cheapestProduct.price}</div>
+       </div>
+)}
+
     </div>
   );
 }
