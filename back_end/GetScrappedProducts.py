@@ -57,7 +57,6 @@
 #     except Exception as e:
 #         print(e)
 
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -66,9 +65,11 @@ def getScrappedProducts(product_name):
     product_dict = {'amazon': [], 'flipkart': []}
 
     # Amazon scraping using ScrapingBee API
-    amazon_url = f"https://app.scrapingbee.com/api/v1/?api_key=J56Q9QBZBHOLMI4DX4I8SHCXJSQ0PON1ADLPE49H3OBR4GSCE0B3G4T2WZTDKJBJCOXF9M3M001V3L0S&url=https://www.amazon.in/s?k={product_name}"
+
     try:
         # Send a GET request to the ScrapingBee API endpoint for Amazon
+        amazon_url = f"https://app.scrapingbee.com/api/v1/?api_key=4WFKLJBI9ZHLPYJQ38QA4NCSMYYLFFACU3O9YBKKBZ6SU6ZV9CA9BSLKNGQ8I351XZLI1MM3FZ8SF88O&url=https://www.amazon.in/s?k={product_name}"
+
         amazon_response = requests.get(amazon_url)
         if (amazon_response.status_code == 200):
             # Parse the HTML content using BeautifulSoup for Amazon
@@ -87,6 +88,8 @@ def getScrappedProducts(product_name):
                     'span', {'class': 'a-price'})
                 amazon_image_element = amazon_product.find(
                     'img', {'class': 's-image'})
+                # amazon_product_url = amazon_product.find(
+                #     'a', {'class': 'a-link-normal'})['href']
 
                 # If the Amazon title and price elements exist, extract the text
                 if amazon_title_element and amazon_price_element:
@@ -102,7 +105,8 @@ def getScrappedProducts(product_name):
                     current_product = {
                         'name': amazon_title,
                         'price': amazon_price,
-                        'image_url': amazon_image_url
+                        'image_url': amazon_image_url,
+                        # 'product_url': amazon_product_url
                     }
                     product_dict['amazon'].append(current_product)
                     i += 1
@@ -142,12 +146,15 @@ def getScrappedProducts(product_name):
                         'img', {'class': '_396cs4 _3exPp9'})
                     flipkart_image_url = flipkart_image_element[
                         'src'] if flipkart_image_element else 'https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'
+                    flipkart_url_element = flipkart_product.find(
+                        'a', {'class': '_1fQZEK'})
 
                     # Append the Flipkart title, price, and image URL to the product list
                     current_product = {
                         'name': flipkart_title,
                         'price': flipkart_price,
-                        'image_url': flipkart_image_url
+                        'image_url': flipkart_image_url,
+                        'product_url': flipkart_image_element
                     }
                     product_dict['flipkart'].append(current_product)
 
