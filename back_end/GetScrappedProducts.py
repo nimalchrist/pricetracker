@@ -66,7 +66,7 @@ def getScrappedProducts(product_name):
     product_dict = {'amazon': [], 'flipkart': []}
 
     # Amazon scraping using ScrapingBee API
-    amazon_url = f"https://app.scrapingbee.com/api/v1/?api_key=J56Q9QBZBHOLMI4DX4I8SHCXJSQ0PON1ADLPE49H3OBR4GSCE0B3G4T2WZTDKJBJCOXF9M3M001V3L0S&url=https://www.amazon.in/s?k={product_name}"
+    amazon_url = f"https://www.amazon.in/s?k={product_name}"
     try:
         # Send a GET request to the ScrapingBee API endpoint for Amazon
         amazon_response = requests.get(amazon_url)
@@ -76,7 +76,7 @@ def getScrappedProducts(product_name):
 
             # Find all the Amazon product containers on the page
             amazon_product_containers = amazon_soup.find_all(
-                'div', {'class': 's-result-item s-asin'})
+                'div', {'class': 's-result-item'})
 
             # Loop through each Amazon product container and extract the title and price
             i = 0
