@@ -88,8 +88,8 @@ def getScrappedProducts(product_name):
                     'span', {'class': 'a-price'})
                 amazon_image_element = amazon_product.find(
                     'img', {'class': 's-image'})
-                # amazon_product_url = amazon_product.find(
-                #     'a', {'class': 'a-link-normal'})['href']
+
+                # amazon_product.find('a', {'class': 'a-link-normal'})['href']
 
                 # If the Amazon title and price elements exist, extract the text
                 if amazon_title_element and amazon_price_element:
@@ -146,8 +146,9 @@ def getScrappedProducts(product_name):
                         'img', {'class': '_396cs4 _3exPp9'})
                     flipkart_image_url = flipkart_image_element[
                         'src'] if flipkart_image_element else 'https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'
+
                     flipkart_url_element = flipkart_product.find(
-                        'a', {'class': '_1fQZEK'})
+                        'a', {'class': '_1fQZEK'})['href']
 
                     # Append the Flipkart title, price, and image URL to the product list
                     current_product = {
