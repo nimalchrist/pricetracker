@@ -29,7 +29,7 @@ def products(product_name):
     # response = jsonify(res)
 
     if request.method == 'GET' and 'cheapest_product' in request.args:
-        cheapest_product = cheap.getCheapestProduct(dict(res))
+        cheapest_product = getter.getCheapestProduct(dict(res))
         response = jsonify(cheapest_product)
     else:
         response = jsonify(res)
