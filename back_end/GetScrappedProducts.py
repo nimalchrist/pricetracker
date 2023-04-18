@@ -143,6 +143,9 @@ def getScrappedProducts(product_name):
             # Loop through each Amazon product container and extract the title and price
             i = 0
             for amazon_product in amazon_product_containers:
+                # Skip the advertisement containers
+                if 's-ad-slot' in amazon_product.get('class', []):
+                    continue 
                 amazon_title_element = amazon_product.find(
                     'h2', {'class': 'a-size-mini'})
                 amazon_price_element = amazon_product.find(
@@ -187,7 +190,7 @@ def getScrappedProducts(product_name):
 
             # Find all the Flipkart product containers on the page
             flipkart_product_containers = flipkart_soup.find_all(
-                'div', {'class': '_2kHMtA'})
+                'div', {'class': '_2kHMtA'})[:-2]
 
             # Loop through each Flipkart product container and extract the title and price
             for flipkart_product in flipkart_product_containers:

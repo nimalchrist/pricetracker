@@ -4,7 +4,8 @@ import { debounce } from "lodash";
 function SearchResults({ searchValue }) {
   const [amazonResults, setAmazonResults] = useState([]);
   const [flipkartResults, setFlipkartResults] = useState([]);
-
+  const [cheapestProduct, setCheapestProduct] = useState(null);
+  
   useEffect(() => {
     const delayedFetchData = debounce(async (searchValue) => {
       try {
@@ -30,7 +31,7 @@ function SearchResults({ searchValue }) {
     // Cleanup function to cancel the debounce timer
     return delayedFetchData.cancel;
   }, [searchValue]);
-
+  
   return (
     <div>
       <div>
@@ -98,6 +99,9 @@ function SearchResults({ searchValue }) {
           ))}
         </div>
       </div>
+      <div  className="form-btn">
+      <span onClick={fetchCheapestProduct}>Cheapest..</span>
+            </div>
     </div>
   );
 }
