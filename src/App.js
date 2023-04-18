@@ -1,12 +1,17 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import { BrowserRouter as Router, Routes,Route,Navigate } from "react-router-dom";
+import Loginswitch from "./pages/login";
+import Home from "./pages/HomePage"
 
 function App() {
   return (
     <Router>
-      <HomePage />
+      <Routes>
+        <Route path="/" element={<Loginswitch />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Router>
   );
 }

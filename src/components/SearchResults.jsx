@@ -4,6 +4,7 @@
 // function SearchResults({ searchValue }) {
 //   const [amazonResults, setAmazonResults] = useState([]);
 //   const [flipkartResults, setFlipkartResults] = useState([]);
+//   const [cheapestProduct, setCheapestProduct] = useState(null);
 
 //   useEffect(() => {
 //     const delayedFetchData = debounce(async (searchValue) => {
@@ -98,6 +99,9 @@
 //           ))}
 //         </div>
 //       </div>
+//       <div  className="form-btn">
+//       <span onClick={fetchCheapestProduct}>Cheapest..</span>
+//             </div>
 //     </div>
 //   );
 // }
@@ -110,6 +114,7 @@ import { debounce } from "lodash";
 function SearchResults({ searchValue }) {
   const [amazonResults, setAmazonResults] = useState([]);
   const [flipkartResults, setFlipkartResults] = useState([]);
+  const [cheapestProduct, setCheapestProduct] = useState(null);
 
   useEffect(() => {
     const delayedFetchData = debounce(async (searchValue) => {
@@ -151,30 +156,53 @@ function SearchResults({ searchValue }) {
         >
           {amazonResults.map((result, index) => (
             <a
+              target="_blank"
               key={index}
               href={result.product_url}
               style={{ textDecoration: "none" }}
             >
               <div
                 style={{
-                  border: "1px solid black",
-                  boxShadow: "1px 2px 9px black",
+                  padding: "20px",
+                  boxShadow: "1px 2px 9px grey",
                   display: "flex",
                   alignItems: "center",
-                  flexBasis: "35%",
                   margin: "15px",
+                  justifyContent: "space-between",
                 }}
               >
-                <img
-                  src={result.image_url}
-                  alt={result.name}
-                  width="100"
-                  height="100"
-                />
-                <div style={{ marginLeft: "1rem" }}>
-                  <div>{result.name}</div>
-                  <div>{result.price}</div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "nowrap",
+                  }}
+                >
+                  <img
+                    src={result.image_url}
+                    alt={result.name}
+                    width="100"
+                    height="100"
+                  />
+                  <div style={{ marginLeft: "1rem" }}>
+                    <div>{result.name}</div>
+                    <div>{result.price}</div>
+                  </div>
                 </div>
+
+                <button
+                  onClick={() => alert("you have a favourite item")}
+                  style={{
+                    backgroundColor: "#AA98A9",
+                    color: "white",
+                    padding: "5px 5px 5px 5px",
+                    border: "none",
+                    borderRadius: "3px",
+                    margin: "0 16px",
+                    transition: "background-color 0.3s ease-in-out",
+                  }}
+                >
+                  Add to Favorites
+                </button>
               </div>
             </a>
           ))}
@@ -182,37 +210,69 @@ function SearchResults({ searchValue }) {
       </div>
       <div>
         <h3 style={{ margin: "auto", textAlign: "center" }}>Flipkart</h3>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "nowrap",
+          }}
+        >
           {flipkartResults.map((result, index) => (
             <a
+              target="_blank"
               key={index}
               href={result.product_url}
               style={{ textDecoration: "none" }}
             >
               <div
                 style={{
-                  border: "1px solid black",
-                  boxShadow: "1px 2px 9px black",
+                  padding: "20px",
+                  boxShadow: "1px 2px 9px grey",
                   display: "flex",
                   alignItems: "center",
-                  flexBasis: "35%",
                   margin: "15px",
+                  justifyContent: "space-between",
                 }}
               >
-                <img
-                  src={result.image_url}
-                  alt={result.name}
-                  width="100"
-                  height="100"
-                />
-                <div style={{ marginLeft: "1rem" }}>
-                  <div>{result.name}</div>
-                  <div>{result.price}</div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "nowrap",
+                  }}
+                >
+                  <img
+                    src={result.image_url}
+                    alt={result.name}
+                    width="100"
+                    height="100"
+                  />
+                  <div style={{ marginLeft: "1rem" }}>
+                    <div>{result.name}</div>
+                    <div>{result.price}</div>
+                  </div>
                 </div>
+
+                <button
+                  onClick={() => alert("you have a favourite item")}
+                  style={{
+                    backgroundColor: "#AA98A9",
+                    color: "white",
+                    padding: "5px 5px 5px 5px",
+                    border: "none",
+                    borderRadius: "3px",
+                    margin: "0 16px",
+                    transition: "background-color 0.3s ease-in-out",
+                  }}
+                >
+                  Add to Favorites
+                </button>
               </div>
             </a>
           ))}
         </div>
+      </div>
+      <div className="form-btn">
+        <span onClick={{}}>Cheapest..</span>
       </div>
     </div>
   );
