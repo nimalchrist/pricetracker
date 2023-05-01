@@ -152,6 +152,9 @@ def getScrappedProducts(product_name):
                     'span', {'class': 'a-price'})
                 amazon_image_element = amazon_product.find(
                     'img', {'class': 's-image'})
+                amazon_product_url_element = amazon_product.find(
+                    'a',{'class': 'a-link-normal s-no-outline'}
+                )    
 
                 # If the Amazon title and price elements exist, extract the text
                 if amazon_title_element and amazon_price_element:
@@ -162,13 +165,14 @@ def getScrappedProducts(product_name):
                         'span', {'class': 'a-price-whole'}).text.strip()
                     amazon_price = amazon_currency_symbol+" "+amazon_price_value
                     amazon_image_url = amazon_image_element['src']if amazon_image_element else 'https://rukminim1.flixcart.com/image/312/312/ktketu80/mobile/6/n/d/iphone-13-mlpg3hn-a-apple-original-imag6vpyghayhhrh.jpeg?q=70'
-
+                    amazon_product_url = amazon_product_url_element['href']
                     # Add the Amazon product details to the dictionary
                     current_product = {
                         'name': amazon_title,
                         'price': amazon_price,
                         'image_url': amazon_image_url,
-                        'product_url': f"https://www.amazon.in/s?k={product_name}"
+                        #'product_url': f"https://www.amazon.in/s?k={product_name}"
+                        'product_url': f"https://www.amazon.in/{amazon_product_url}"
                     }
                     product_dict['amazon'].append(current_product)
                     i += 1
@@ -198,22 +202,26 @@ def getScrappedProducts(product_name):
                     'div', {'class': '_4rR01T'})
                 flipkart_price_element = flipkart_product.find(
                     'div', {'class': '_30jeq3 _1_WHN1'})
-
+                
                 # If the Flipkart title and price elements exist, extract the text
                 if flipkart_title_element and flipkart_price_element:
                     flipkart_title = flipkart_title_element.text.strip()
                     flipkart_price = flipkart_price_element.text.strip()
                     flipkart_image_element = flipkart_product.find(
-                        'img', {'class': '_396cs4 _3exPp9'})
+                        'img', {'class': '_396cs4'})
                     flipkart_image_url = flipkart_image_element[
                         'src'] if flipkart_image_element else 'https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'
-
+                    flipkart_product_element = flipkart_product.find(
+                        'a',{'class': '_1fQZEK'}
+                    )
+                    flipkart_product_url = flipkart_product_element['href']
                     # Append the Flipkart title, price, and image URL to the product list
                     current_product = {
                         'name': flipkart_title,
                         'price': flipkart_price,
                         'image_url': flipkart_image_url,
-                        'product_url': f"https://www.flipkart.com/search?q={product_name}"
+                        #'product_url': f"https://www.flipkart.com/search?q={product_name}"
+                        'product_url':f"https://www.flipkart.com{flipkart_product_url}"
                     }
                     product_dict['flipkart'].append(current_product)
 

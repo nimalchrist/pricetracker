@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.2",
     "@restart/ui": "^1.6.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -15,10 +19,11 @@
     "react-hamburger-icon": "^1.0.2",
     "react-icons": "^4.8.0",
     "react-lifecycles-compat": "^3.0.4",
-    "react-router-dom": "^6.10.0",
+    "react-router-dom": "^6.11.0",
     "react-scripts": "^5.0.1",
     "react-social-login-buttons": "^3.6.1",
     "uncontrollable": "^8.0.0",
+    "use-history": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
