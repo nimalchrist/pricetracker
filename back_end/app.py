@@ -8,8 +8,8 @@ import cheap_product as cheap
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="fency@07",
-    database="pt_tracter"
+    password="Ninunimal@2",
+    database="pt_tracker"
 )
 
 # creating a Flask app

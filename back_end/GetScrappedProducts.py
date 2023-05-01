@@ -193,9 +193,15 @@ def getScrappedProducts(product_name):
                 flipkart_response.content, 'html.parser')
 
             # Find all the Flipkart product containers on the page
-            flipkart_view1 = flipkart_soup.find_all('div', {'class': '_2kHMtA'})[:-2]
-            flipkart_view2 = flipkart_soup.find_all('div',{'class': '_1xHGtK _373qXS'})[:-2]
-            flipkart_product_containers = flipkart_view1 if not flipkart_view1 else flipkart_view2   
+            flipkart_view1 = flipkart_soup.find_all(
+                'div', {'class': '_2kHMtA'})[:-2]
+            
+            flipkart_view2 = flipkart_soup.find_all('div',{'class': '_1YokD2 _3Mn1Gg'})
+            
+            if flipkart_view1:
+                flipkart_product_containers = flipkart_view1
+            else:
+                flipkart_product_containers = flipkart_view2
             #flipkart_product_containers = flipkart_soup.find_all(
                 #'div', {'class': '_2kHMtA'})[:-2] 
 
@@ -232,12 +238,20 @@ def getScrappedProducts(product_name):
                 return product_dict
             else:
                 for flipkart_product in flipkart_product_containers:
+                    # rows = flipkart_product.find_all(
+                    #     'div', {'class': '_1AtVbE co1-12-12'})
+                    # for row in rows:
+                    #     flipkart_title = row.find('a', {'class': '_2cLu-l'}).text
+                    #     flipkart_price = row.find('div', {'class': '_1vC4OE _2rQ-NK'}).text
+                    #     flipkart_product_url = row.find('a', {'class': '_2cLu-l'})['href']
+                    #     flipkart_image_url = row.find('img', {'class': '_396cs4 _3exPp9'})['src']
+                        
                     flipkart_title_element = flipkart_product.find(
                         'a', {'class': 'IRpwTa'})
                     flipkart_price_element = flipkart_product.find(
                         'div', {'class': '_30jeq3 '})
                     
-                    # If the Flipkart title and price elements exist, extract the text
+                    #If the Flipkart title and price elements exist, extract the text
                     if flipkart_title_element and flipkart_price_element:
                         flipkart_title = flipkart_title_element.text.strip()
                         flipkart_price = flipkart_price_element.text.strip()
