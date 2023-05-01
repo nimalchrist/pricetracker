@@ -5,6 +5,7 @@ import mysql.connector
 import cheap_product as cheap
 
 
+
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
