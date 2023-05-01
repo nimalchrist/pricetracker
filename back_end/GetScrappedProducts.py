@@ -172,7 +172,7 @@ def getScrappedProducts(product_name):
                         'price': amazon_price,
                         'image_url': amazon_image_url,
                         #'product_url': f"https://www.amazon.in/s?k={product_name}"
-                        'product_url': f"https://www.amazon.in/{amazon_product_url}"
+                        'product_url': f"https://www.amazon.in{amazon_product_url}"
                     }
                     product_dict['amazon'].append(current_product)
                     i += 1
@@ -193,39 +193,74 @@ def getScrappedProducts(product_name):
                 flipkart_response.content, 'html.parser')
 
             # Find all the Flipkart product containers on the page
-            flipkart_product_containers = flipkart_soup.find_all(
-                'div', {'class': '_2kHMtA'})[:-2]
+            flipkart_view1 = flipkart_soup.find_all('div', {'class': '_2kHMtA'})[:-2]
+            flipkart_view2 = flipkart_soup.find_all('div',{'class': '_1xHGtK _373qXS'})[:-2]
+            flipkart_product_containers = flipkart_view1 if not flipkart_view1 else flipkart_view2   
+            #flipkart_product_containers = flipkart_soup.find_all(
+                #'div', {'class': '_2kHMtA'})[:-2] 
 
             # Loop through each Flipkart product container and extract the title and price
-            for flipkart_product in flipkart_product_containers:
-                flipkart_title_element = flipkart_product.find(
-                    'div', {'class': '_4rR01T'})
-                flipkart_price_element = flipkart_product.find(
-                    'div', {'class': '_30jeq3 _1_WHN1'})
-                
-                # If the Flipkart title and price elements exist, extract the text
-                if flipkart_title_element and flipkart_price_element:
-                    flipkart_title = flipkart_title_element.text.strip()
-                    flipkart_price = flipkart_price_element.text.strip()
-                    flipkart_image_element = flipkart_product.find(
-                        'img', {'class': '_396cs4'})
-                    flipkart_image_url = flipkart_image_element[
-                        'src'] if flipkart_image_element else 'https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'
-                    flipkart_product_element = flipkart_product.find(
-                        'a',{'class': '_1fQZEK'}
-                    )
-                    flipkart_product_url = flipkart_product_element['href']
-                    # Append the Flipkart title, price, and image URL to the product list
-                    current_product = {
-                        'name': flipkart_title,
-                        'price': flipkart_price,
-                        'image_url': flipkart_image_url,
-                        #'product_url': f"https://www.flipkart.com/search?q={product_name}"
-                        'product_url':f"https://www.flipkart.com{flipkart_product_url}"
-                    }
-                    product_dict['flipkart'].append(current_product)
+            if flipkart_product_containers == flipkart_view1:
+                for flipkart_product in flipkart_product_containers:
+                    flipkart_title_element = flipkart_product.find(
+                        'div', {'class': '_4rR01T'})
+                    flipkart_price_element = flipkart_product.find(
+                        'div', {'class': '_30jeq3 _1_WHN1'})
+                    
+                    # If the Flipkart title and price elements exist, extract the text
+                    if flipkart_title_element and flipkart_price_element:
+                        flipkart_title = flipkart_title_element.text.strip()
+                        flipkart_price = flipkart_price_element.text.strip()
+                        flipkart_image_element = flipkart_product.find(
+                            'img', {'class': '_396cs4'})
+                        flipkart_image_url = flipkart_image_element[
+                            'src'] if flipkart_image_element else 'https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'
+                        flipkart_product_element = flipkart_product.find(
+                            'a',{'class': '_1fQZEK'}
+                        )
+                        flipkart_product_url = flipkart_product_element['href']
+                        # Append the Flipkart title, price, and image URL to the product list
+                        current_product = {
+                            'name': flipkart_title,
+                            'price': flipkart_price,
+                            'image_url': flipkart_image_url,
+                            #'product_url': f"https://www.flipkart.com/search?q={product_name}"
+                            'product_url':f"https://www.flipkart.com{flipkart_product_url}"
+                        }
+                        product_dict['flipkart'].append(current_product)
 
-            return product_dict
+                return product_dict
+            else:
+                for flipkart_product in flipkart_product_containers:
+                    flipkart_title_element = flipkart_product.find(
+                        'a', {'class': 'IRpwTa'})
+                    flipkart_price_element = flipkart_product.find(
+                        'div', {'class': '_30jeq3 '})
+                    
+                    # If the Flipkart title and price elements exist, extract the text
+                    if flipkart_title_element and flipkart_price_element:
+                        flipkart_title = flipkart_title_element.text.strip()
+                        flipkart_price = flipkart_price_element.text.strip()
+                        flipkart_image_element = flipkart_product.find(
+                            'img', {'class': '_2r_T1I'})
+                        flipkart_image_url = flipkart_image_element[
+                            'src'] if flipkart_image_element else 'https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg'
+                        flipkart_product_element = flipkart_product.find(
+                            'a',{'class': '_2UzuFa'}
+                        )
+                        flipkart_product_url = flipkart_product_element['href']
+                        # Append the Flipkart title, price, and image URL to the product list
+                        current_product = {
+                            'name': flipkart_title,
+                            'price': flipkart_price,
+                            'image_url': flipkart_image_url,
+                            #'product_url': f"https://www.flipkart.com/search?q={product_name}"
+                            'product_url':f"https://www.flipkart.com{flipkart_product_url}"
+                        }
+                        product_dict['flipkart'].append(current_product)
+
+                return product_dict
+
         else:
             return "No products found on flipkart"
 
