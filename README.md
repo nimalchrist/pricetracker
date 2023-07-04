@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# PriceTracker Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the documentation for PriceTracker, a web application developed using React for the front end, Flask (Python) for the back end, BeautifulSoup for web scraping, and MySQL for the database. PriceTracker allows users to track prices of products and create wishlists.
 
-## Available Scripts
+## Team Member
+- Mary Fency J - Flask Developer and UI Designer
 
-In the project directory, you can run:
+## Installation and Setup
 
-### `npm start`
+Before running PriceTracker, you need to set up React, Flask, BeautifulSoup, and MySQL on your machine.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### React
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To install React:
 
-### `npm test`
+1. Ensure that you have Node.js installed on your system.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Open your terminal and run the following command to install React globally:
+   ```
+   npm install -g create-react-app
+   ```
 
-### `npm run build`
+### Flask and BeautifulSoup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To install Flask and BeautifulSoup:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Ensure that you have Python installed on your system.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Create a new virtual environment:
+   ```
+   python3 -m venv pricetracker-env
+   ```
 
-### `npm run eject`
+3. Activate the virtual environment:
+   - For macOS/Linux:
+     ```
+     source pricetracker-env/bin/activate
+     ```
+   - For Windows (PowerShell):
+     ```
+     .\pricetracker-env\Scripts\Activate.ps1
+     ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Install Flask and BeautifulSoup:
+   ```
+   pip install flask beautifulsoup4
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### MySQL
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To install MySQL:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Visit the [MySQL website](https://www.mysql.com/) and download the appropriate version for your operating system.
 
-## Learn More
+2. Run the installer and follow the instructions.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Set up a MySQL user and password for your development environment.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
 
-### Code Splitting
+The PriceTracker repository consists of two main folders:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. `pricetracker/` - Contains the React project for the front end of the application.
+2. `backend/` - Contains the Flask application for the back end of the application.
 
-### Analyzing the Bundle Size
+The structure of each folder is as follows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Frontend (React)
 
-### Making a Progressive Web App
+- `src/` - Contains the main JavaScript code for the React app.
+- `public/` - Holds static assets such as images, fonts, and the main HTML file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Backend (Flask)
 
-### Advanced Configuration
+- `app.py` - The main Flask application file.
+- `scraper.py` - Contains web scraping logic using BeautifulSoup.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Database Table Design
 
-### Deployment
+PriceTracker utilizes a MySQL database with the following table design:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. `users` - Stores user details, including username, password, and other relevant information.
+2. `wishlist` - Manages the wishlist items of users, including the product name, URL, price, and associated user ID.
